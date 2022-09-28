@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CrudApi.Controllers
 {
     [ApiController]
-    [Route("[Controller]")]
+    [Route("[controller]")]
     public class ApiController : ControllerBase
     {
 
@@ -16,15 +16,22 @@ namespace CrudApi.Controllers
         {
             _productRepository = productRepository;
         }
+        [HttpGet]
+        [Route("Get-Product")]
+        public Product GetProduct(long Id)
+        {
+            return _productRepository.searchById(Id);
+        }
 
         [HttpPost]
         [Route("Create-Product")]
-        public bool createProduct([FromBody] ProductModel model)
+        public bool createProduct([FromBody] ProductModel model) 
         {
             try
             {
                 var product = new Product()
                 {
+                    Id = model.Id,
                     Name = model.Name,
                     Price = model.Price,
                 };
@@ -38,17 +45,31 @@ namespace CrudApi.Controllers
         }
         [HttpDelete]
         [Route("Delete-Product")]
-        public bool deleteProduct([FromBody] ProductModel model)
+        //public bool deleteProduct([FromBody] ProductModel model)
+        //{
+        //    try
+        //    {
+        //        var product = new Product()
+        //        {
+        //            Id = model.Id,
+        //            Name = model.Name,
+        //            Price = model.Price,
+        //        };
+        //        _productRepository.deleteProduct(model.Id);
+        //        return true;
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+        //}
+
+        public bool DeleteProduct(long id)
         {
             try
             {
-                var product = new Product()
-                {
-                    Id = model.Id,
-                    Name = model.Name,
-                    Price = model.Price,
-                };
-                _productRepository.deleteProduct(model.Id);
+                var product = _productRepository.searchById(id);
+                _productRepository.deleteProduct(product.Id);
                 return true;
             }
             catch

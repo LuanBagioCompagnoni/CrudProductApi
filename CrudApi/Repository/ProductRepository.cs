@@ -1,6 +1,7 @@
 ﻿using CotacaoMoeda.Context;
 using CrudApi.Entity;
 using CrudApi.Repository.IRepository;
+using System.Linq;
 
 namespace CrudApi.Repository
 {
@@ -47,9 +48,9 @@ namespace CrudApi.Repository
             return true;
         }
 
-        public List<Product> getAll()
+        public IEnumerable<Product> getAll()
         {
-            return _context.Product.ToList();
+            return _context.Product.OrderBy(s => s.Id) ;
         }
 
     }

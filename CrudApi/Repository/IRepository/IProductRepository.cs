@@ -1,4 +1,5 @@
 ﻿using CrudApi.Entity;
+using CrudApi.Model;
 
 namespace CrudApi.Repository.IRepository
 {
@@ -11,7 +12,7 @@ namespace CrudApi.Repository.IRepository
 
         bool deleteProduct(long Id);
 
-        List<Product> getAll();
+        IEnumerable<Product> getAll();
 
     }
 }
