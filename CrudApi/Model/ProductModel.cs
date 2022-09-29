@@ -6,6 +6,7 @@ namespace CrudApi.Model
     {
 
         public int Id { get; set; }
+
         [Required(ErrorMessage = "O campo Nome é obrigatório!"), MaxLength(150, ErrorMessage = "O tamanho máximo do campo nome é 60")]
         public string Name { get; set; }
 
